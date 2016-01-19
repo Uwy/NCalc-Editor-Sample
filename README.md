@@ -1,5 +1,5 @@
 # NCalc Editor Sample
-## Small app to show how to make a small editor in C#/WPF with AvalonDock and AvalonEditor
+## Sample app to edit/run NCalc script made in C#/WPF with AvalonDock and AvalonEditor
 
 Basically everything you should know is in the subtitle.
 If you're interested in this repo, it's most likely that you want to make a dedicated control for editing NCalc or searching how to use AvalonDock and AvalonEdit in a MVVM manner.
