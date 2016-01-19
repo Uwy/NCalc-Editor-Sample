@@ -8,12 +8,13 @@
         xmlns:is="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:ScriptSample"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:tr="clr-namespace:ScriptSample.Properties"
         xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
-        Title="TeseScript"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        x:Name="selfie"
+        Title="{x:Static tr:Resources.Title}"
         DataContext="{Binding Source={StaticResource Locator},
                               Path=Main}"
-        x:Name="selfie"
         mc:Ignorable="d">
     <DockPanel>
         <ToolBarTray DockPanel.Dock="Top">
@@ -26,12 +27,12 @@
                 <ad:LayoutPanel Orientation="Vertical">
                     <ad:LayoutPanel Orientation="Horizontal">
                         <ad:LayoutAnchorablePane DockWidth="150">
-                            <ad:LayoutAnchorable Title="Variables" CanClose="False">
+                            <ad:LayoutAnchorable Title="{x:Static tr:Resources.Variables}" CanClose="False">
                                 <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Parameters}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Nom" Binding="{Binding Label}"/>
-                                        <DataGridTextColumn Header="Valeur" Binding="{Binding Value}"/>
-                                        <DataGridTemplateColumn Header="Suppr">
+                                        <DataGridTextColumn Binding="{Binding Label}" Header="{x:Static tr:Resources.VariableName}" />
+                                        <DataGridTextColumn Binding="{Binding Value}" Header="{x:Static tr:Resources.VariableValue}" />
+                                        <DataGridTemplateColumn Header="{x:Static tr:Resources.VariableDeletion}">
                                             <DataGridTemplateColumn.CellTemplate>
                                                 <DataTemplate>
                                                     <Button Command="{Binding DataContext.RemoveParameter, ElementName=selfie}" CommandParameter="{Binding}" Content="X" />
@@ -43,23 +44,20 @@
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                         <ad:LayoutDocumentPane>
-                            <ad:LayoutDocument Title="Editeur" CanClose="False">
-                                <ae:TextEditor Document="{Binding Script}"
-                                               FontFamily="Consolas"
-                                               ShowLineNumbers="True"
-                                               SyntaxHighlighting="{Binding SyntaxHighlight}" />
+                            <ad:LayoutDocument Title="{x:Static tr:Resources.Editor}" CanClose="False">
+                                <ae:TextEditor Document="{Binding Script}" FontFamily="Consolas" ShowLineNumbers="True" SyntaxHighlighting="{Binding SyntaxHighlight}" />
                             </ad:LayoutDocument>
                         </ad:LayoutDocumentPane>
                     </ad:LayoutPanel>
 
                     <ad:LayoutPanel DockHeight="100" Orientation="Horizontal">
                         <ad:LayoutAnchorablePane>
-                            <ad:LayoutAnchorable Title="Erreurs" CanClose="False">
+                            <ad:LayoutAnchorable Title="{x:Static tr:Resources.Errors}" CanClose="False">
                                 <TextBlock Text="{Binding ScriptError}" />
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>
                         <ad:LayoutAnchorablePane>
-                            <ad:LayoutAnchorable Title="Résultat" CanClose="False">
+                            <ad:LayoutAnchorable Title="{x:Static tr:Resources.Result}" CanClose="False">
                                 <TextBlock Text="{Binding ScriptResult}" />
                             </ad:LayoutAnchorable>
                         </ad:LayoutAnchorablePane>

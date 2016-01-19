@@ -117,10 +117,9 @@ namespace ScriptSample.ViewModel
         private void OnRemoveParameter(object obj)
         {
             var casted = obj as ParameterViewModel;
-            if(casted != null)
+            if (casted != null)
             {
                 this.Parameters.Remove(casted);
-
             }
         }
 
