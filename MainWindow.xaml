@@ -1,0 +1,71 @@
+﻿<Window x:Class="ScriptSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:is="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:ScriptSample"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:xcdg="http://schemas.xceed.com/wpf/xaml/datagrid"
+        Title="TeseScript"
+        DataContext="{Binding Source={StaticResource Locator},
+                              Path=Main}"
+        x:Name="selfie"
+        mc:Ignorable="d">
+    <DockPanel>
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Command="{Binding ExecuteScript}" Content="Executer" />
+            </ToolBar>
+        </ToolBarTray>
+        <ad:DockingManager>
+            <ad:LayoutRoot>
+                <ad:LayoutPanel Orientation="Vertical">
+                    <ad:LayoutPanel Orientation="Horizontal">
+                        <ad:LayoutAnchorablePane DockWidth="150">
+                            <ad:LayoutAnchorable Title="Variables" CanClose="False">
+                                <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Parameters}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Nom" Binding="{Binding Label}"/>
+                                        <DataGridTextColumn Header="Valeur" Binding="{Binding Value}"/>
+                                        <DataGridTemplateColumn Header="Suppr">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button Command="{Binding DataContext.RemoveParameter, ElementName=selfie}" CommandParameter="{Binding}" Content="X" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+                        <ad:LayoutDocumentPane>
+                            <ad:LayoutDocument Title="Editeur" CanClose="False">
+                                <ae:TextEditor Document="{Binding Script}"
+                                               FontFamily="Consolas"
+                                               ShowLineNumbers="True"
+                                               SyntaxHighlighting="{Binding SyntaxHighlight}" />
+                            </ad:LayoutDocument>
+                        </ad:LayoutDocumentPane>
+                    </ad:LayoutPanel>
+
+                    <ad:LayoutPanel DockHeight="100" Orientation="Horizontal">
+                        <ad:LayoutAnchorablePane>
+                            <ad:LayoutAnchorable Title="Erreurs" CanClose="False">
+                                <TextBlock Text="{Binding ScriptError}" />
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+                        <ad:LayoutAnchorablePane>
+                            <ad:LayoutAnchorable Title="Résultat" CanClose="False">
+                                <TextBlock Text="{Binding ScriptResult}" />
+                            </ad:LayoutAnchorable>
+                        </ad:LayoutAnchorablePane>
+                    </ad:LayoutPanel>
+                </ad:LayoutPanel>
+            </ad:LayoutRoot>
+        </ad:DockingManager>
+    </DockPanel>
+</Window>

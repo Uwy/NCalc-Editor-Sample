@@ -1,0 +1,90 @@
+﻿<?xml version="1.0"?>
+<SyntaxDefinition name="NCalc" extensions=".ncalc" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <!-- The named colors 'Comment' and 'String' are used in SharpDevelop to detect if a line is inside a multiline string/comment -->
+  <Color name="String" foreground="Blue" exampleText="string text = &quot;Hello, World!&quot;" />
+  <Color name="Date" foreground="Teal" exampleText="#12/07/2014#" />
+
+  <Color name="MethodCall" foreground="MidnightBlue" fontWeight="bold" exampleText="o.ToString();" />
+  <Color name="NumberLiteral" foreground="DarkBlue" exampleText="3.1415f" />
+  <Color name="TrueFalse" fontWeight="bold"  foreground="DarkCyan" exampleText="b = false; a = true;" />
+  <Color name="Parameter" fontWeight="bold" exampleText="[parameter]" />
+  <Color name="Operators" fontWeight="bold" foreground="DarkCyan" exampleText="1 * 8 / 3 % 7" />
+
+  <!-- This is the main ruleset. -->
+  <RuleSet>
+
+    <Span color="Parameter">
+      <Begin>\[</Begin>
+      <End>\]</End>
+    </Span>
+
+    <Span color="String">
+      <Begin>'</Begin>
+      <End>'</End>
+      <RuleSet>
+        <!-- span for escape sequences -->
+        <Span begin="\\" end="." />
+      </RuleSet>
+    </Span>
+
+    <Keywords color="TrueFalse">
+      <Word>true</Word>
+      <Word>false</Word>
+    </Keywords>
+
+    <Keywords color="Operators">
+      <!-- Logical operators-->
+      <Word>or</Word>
+      <Word>||</Word>
+      <Word>and</Word>
+      <Word>&amp;&amp;</Word>
+      <!-- Relationnal operators -->
+      <Word>=</Word>
+      <Word>==</Word>
+      <Word>!=</Word>
+      <Word>&lt;</Word>
+      <Word>&gt;</Word>
+      <Word>&lt;=</Word>
+      <Word>&gt;=</Word>
+      <Word>&lt;&gt;</Word>
+      <!-- Addition operators -->
+      <Word>+</Word>
+      <Word>-</Word>
+      <!-- Multiplication operators-->
+      <Word>*</Word>
+      <Word>/</Word>
+      <Word>%</Word>
+      <!-- Bitwise operators-->
+      <Word>&amp;</Word>
+      <Word>|</Word>
+      <Word>&lt;&lt;</Word>
+      <Word>&gt;&gt;</Word>
+      <!-- Unary operators -->
+      <Word>not</Word>
+      <Word>!</Word>
+      <!-- Primary -->
+      <Word>(</Word>
+      <Word>)</Word>
+    </Keywords>
+
+    <!-- Mark previous rule-->
+    <Rule color="MethodCall">
+      \b
+      [\d\w_]+  # an identifier
+      (?=\s*\() # followed by (
+    </Rule>
+
+    <!-- Digits -->
+    <Rule color="NumberLiteral">
+      \b0[xX][0-9a-fA-F]+  # hex number
+      |
+      (	\b\d+(\.[0-9]+)?   #number with optional floating point
+      |	\.[0-9]+           #or just starting with floating point
+      )
+      (e[+-]?[0-9]+)? # optional exponent
+    </Rule>
+    <Rule color="Date">
+      \#\d+\/\d+\/\d+\#
+    </Rule>
+  </RuleSet>
+</SyntaxDefinition>
